@@ -7,6 +7,8 @@ class AnalizadorDeNotas{
     int[] rut;
     int cantEstudiantes;
     int cantEvaluaciones;
+    double[] promediosEstudiantes;
+    double[] promedioEvaluaciones;
 
     public AnalizadorDeNotas(int estudiantes, int evaluaciones){
         this.notas = new double[estudiantes][evaluaciones];
@@ -14,6 +16,8 @@ class AnalizadorDeNotas{
         this.cantEvaluaciones = evaluaciones;
         this.evaluaciones = new String[evaluaciones];
         this.rut = new int[estudiantes];
+        this.promediosEstudiantes = new double[estudiantes];
+        this.promedioEvaluaciones = new double[evaluaciones];
 
         for(int  i = 0; i < estudiantes; i++){
             for(int j = 0; j < evaluaciones; j++){
@@ -42,6 +46,8 @@ class AnalizadorDeNotas{
         this.cantEvaluaciones = evaluaciones;
         this.evaluaciones = nombresEvaluaciones;
         this.rut = new int[estudiantes];
+        this.promediosEstudiantes = new double[estudiantes];
+        this.promedioEvaluaciones = new double[evaluaciones];
 
         for(int  i = 0; i < estudiantes; i++){
             for(int j = 0; j < evaluaciones; j++){
@@ -138,6 +144,24 @@ class AnalizadorDeNotas{
         }
         int res=rut[max];
         return res+"";
+    }
+
+    public double[] calcularPromediosEstudiantesOptimizado(){
+        double[] promedios = new double[cantEstudiantes];
+        for(int i = 0; i < cantEstudiantes; i++){
+            promedios[i] = calcularPromedioEstudiante(i+1);
+        }
+        this.promediosEstudiantes = promedios;
+        return promedios;
+    }
+
+    public double[] calcularPromedioEvaluacionesOptimizado(){
+        double[] promedios = new double[cantEvaluaciones];
+        for(int i = 0; i < cantEvaluaciones; i++){
+            promedios[i] = calcularPromedioEvaluacion(i);
+        }
+        this.promedioEvaluaciones = promedios;
+        return promedios;
     }
 }
 
