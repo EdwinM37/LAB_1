@@ -25,25 +25,8 @@ class AnalizadorDeNotas{
 
         Scanner entrada = new Scanner(System.in);
 
-        int cont=0;
-        while(cont<cantEstudiantes){
-            System.out.print("Ingrese id del estudiante "+(cont+1)+": ");
-            int idEstudiante = entrada.nextInt();
-
-            boolean existe = false;
-
-            for(int i=0;i<cont;i++){
-                if(rut[i]==idEstudiante){
-                    existe = true;
-                    break;
-                }
-            }
-            if(existe){
-                System.out.println("El id ya existe, ingrese otro;");
-            } else{
-                rut[cont] = idEstudiante;
-                cont++;
-            }
+        for(int i = 0; i < estudiantes; i++){
+            this.rut[i] = i+1;
         }
 
         for(int i = 0; i < evaluaciones; i++){
@@ -70,25 +53,8 @@ class AnalizadorDeNotas{
 
         Scanner entrada = new Scanner(System.in);
 
-        int cont=0;
-        while(cont<cantEstudiantes){
-            System.out.print("Ingrese id del estudiante "+(cont+1)+": ");
-            int idEstudiante = entrada.nextInt();
-
-            boolean existe = false;
-
-            for(int i=0;i<cont;i++){
-                if(rut[i]==idEstudiante){
-                    existe = true;
-                    break;
-                }
-            }
-            if(existe){
-                System.out.println("El id ya existe, ingrese otro;");
-            } else{
-                rut[cont] = idEstudiante;
-                cont++;
-            }
+        for(int i = 0; i < estudiantes; i++){
+            this.rut[i] = i+1;
         }
     }
 
@@ -127,15 +93,20 @@ class AnalizadorDeNotas{
     public double[] calcularPromediosEstudiantes(){
         double[] promedios = new double[cantEstudiantes];
         for(int i = 0; i < cantEstudiantes; i++){
-            promedios[i] = calcularPromedioEstudiante(i);
+            promedios[i] = calcularPromedioEstudiante(i+1);
         }
         return promedios;
     }
 
-    public double[] calcularVarianzasEstudiantes(){
+    public double[] calcularVarianzaEstudiantes(){
         double[] varianzas = new double[cantEstudiantes];
         for(int i = 0; i < cantEstudiantes; i++){
-            varianzas[i] = calcularPromedioEvaluacion(i);
+            double total = 0;
+            double promedio = calcularPromedioEstudiante(i+1);
+            for(int j = 0; j < cantEvaluaciones; j++){
+                total += (notas[i][j]-promedio)*(notas[i][j]-promedio);
+            }
+            varianzas[i] = total/cantEvaluaciones;
         }
         return varianzas;
     }
@@ -146,12 +117,14 @@ class AnalizadorDeNotas{
             double suma = 0;
             int cont=0;
             for(int j = 0; j < cantEvaluaciones; j++){
-                if(this.evaluaciones[j]==evaluaciones[cont]){
+                if(cont == evaluaciones.length){
+                    break;
+                }else if(this.evaluaciones[j].equals(evaluaciones[cont])){
                     suma += notas[i][j];
                     cont++;
                 }
-                promedios[i]=suma/evaluaciones.length;
             }
+            promedios[i]= (suma/evaluaciones.length);
         }
         return promedios;
     }
