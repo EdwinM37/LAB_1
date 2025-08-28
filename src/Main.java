@@ -29,9 +29,26 @@ class AnalizadorDeNotas{
 
         Scanner entrada = new Scanner(System.in);
 
-        for(int i = 0; i < estudiantes; i++){
-            this.rut[i] = i+1;
-        }
+        int cont=0;
+        while(cont<cantEstudiantes){
+            System.out.print("Ingrese id del estudiante "+(cont+1)+": ");
+            int idEstudiante = entrada.nextInt();
+
+            boolean existe = false;
+
+            for(int i=0;i<cont;i++){
+                if(rut[i]==idEstudiante){
+                    existe = true;
+                    break;
+                }
+            }
+            if(existe){
+                System.out.println("El id ya existe, ingrese otro;");
+            } else{
+                rut[cont] = idEstudiante;
+                cont++;
+            }
+        } 
 
         for(int i = 0; i < evaluaciones; i++){
             System.out.print("Ingrese nombre de evaluacion "+(i+1)+": ");
